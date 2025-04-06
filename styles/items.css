@@ -1,0 +1,249 @@
+.under-table{
+    overflow: hidden;
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
+    width: 650px;
+    height: 900px;
+    margin-top: 2.5%;
+    background-color: rgb(44, 44, 41);
+}
+
+.img{
+    max-width: 60%;
+    height: auto;
+}
+
+.table{
+    display: flex;
+    justify-content: space-around; /* Центрирует элементы по горизонтали */
+    align-items: center; /* Центрирует элементы по вертикали */
+    width: 95%;
+    height: 22%;
+    position: absolute;
+    border: 2px solid #AEAEAE;
+    border-radius: 10px;
+    background-color: #092910;
+    z-index: 2;
+}
+
+.first-player{
+    width: 100%;
+    height: 35%;
+    margin-top: 1%;
+}
+
+.central-container{
+    width: 100%;
+    height: 30%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+
+.hp-counter{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: white;
+}
+
+.start-button{
+    z-index: 5;
+    position: fixed;
+    overflow: hidden;
+    background-color: transparent;
+    font-size: 16px;
+    padding: 20px 40px;
+    font-weight: 700;
+    border:2px solid yellowgreen;
+    color:#fff;
+    transition: color 150ms ease-in-out;
+}
+
+.start-button::after{
+    content: "";
+    position: absolute;
+    display: block;
+    top: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 0;
+    height: 100%;
+    background: yellowgreen;
+    z-index: -1;
+    transition: width 150ms ease-in-out;
+}
+
+
+.start-button:hover::after{
+    width: 110%;
+}
+
+.start-button:active{
+    transform: translateY(2px);
+}
+
+
+.second-player{
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    width: 100%;
+    height: 35%;
+    margin-bottom: 5%;
+    }
+
+.health-bar{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: relative;
+    height: 50%;
+    width: 75%;
+    border-radius: 5px;
+    background-color: rgba(255, 0, 0, 0.6);
+    border: 3px solid #000000;
+    z-index: 2;
+}
+
+
+.hp-player{
+    width: 100%;
+    height: 35%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+#hp-frst{
+    background-color: #40aa2b;
+    width: 100%;
+    height: 100%;
+}
+
+#hp-scnd{
+    background-color: #40aa2b;
+    width: 100%;
+    height: 100%;
+}
+
+.dice{
+    position: relative;
+    justify-content: center;
+    align-items: center;
+    border: 2px solid #000;
+    z-index: 4;
+    width: 60px;
+    height: 60px;
+    min-width: 60px;
+    min-height: 60px;
+    background-color: whitesmoke;
+    border-radius: 8px;
+}
+
+.face{
+    width: 100%;
+    height: 100%;
+    background-color: #fff;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    display: none;
+    border-radius: 8px;
+}
+
+#face1, #face2, #face3, #face4, #face5, #face6{
+    display: none;
+    justify-content: space-around;
+    align-items: center;
+    flex-wrap: wrap;
+}
+
+.dot{
+    width: 10px;
+    height: 10px;
+    background-color: black;
+    border-radius: 100%;
+    position: relative;
+    margin: 5px 10px;
+}
+
+#dice3{
+    display: none;
+}
+
+.settings{
+    justify-content: space-around; /* Центрирует элементы по горизонтали */
+    align-items: center; /* Центрирует элементы по вертикали */
+    z-index: 6;
+    width: 98%;
+    height: 22%;
+    /* background-color: rgb(5, 79, 79); */
+    position: absolute;
+    display: block;
+    /* border: 2px solid #03ffd5; */
+    /* border-radius: 10px; */
+}
+
+.wonFrstPlayer, .wonScndPlayer{
+    font-size: 25;
+    width: 100%;
+    height: 35%;
+    color: #ffea00;
+    -webkit-text-stroke: 1px rgb(157, 134, 3);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+}
+
+.restart-item{
+    z-index: 5;
+    width: 100%;
+    height: 30%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+h1{
+    font-size: 45px;
+}
+
+.restartBT{
+    z-index: 5;
+    position: fixed;
+    overflow: hidden;
+    background-color: transparent;
+    font-size: 16px;
+    padding: 20px 40px;
+    font-weight: 700;
+    border:2px solid yellowgreen;
+    color:#fff;
+    transition: color 150ms ease-in-out;
+}
+
+.restartBT::after{
+    content: "";
+    position: absolute;
+    display: block;
+    top: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 0;
+    height: 100%;
+    background: yellowgreen;
+    z-index: -1;
+    transition: width 150ms ease-in-out;
+}
+
+
+.restartBT:hover::after{
+    width: 110%;
+}
+
+.restartBT:active{
+    transform: translateY(2px);
+}

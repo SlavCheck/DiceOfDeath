@@ -1,0 +1,90 @@
+.buttons{
+    width: 100%;
+    height: 35%;
+    display: flex;
+    justify-content: space-between; 
+    align-items: center;
+}
+
+.buttons > div{
+    display: flex;
+    justify-content: center; /* Центрирует элементы по горизонтали */
+    align-items: center; /* Центрирует элементы по вертикали */
+    z-index: 2;
+    border-radius: 10px;
+    width: 80%;
+    height: 60%;
+    margin-left: 4%;
+}
+
+.just-space{
+    width: 100%;
+    height: 30%;
+}
+
+.attack-bt{
+    background-color: #FF0000;
+    box-shadow: 0 0 20px #FF0000;
+}
+.attack-bt:hover{
+    box-shadow: 0 0 50px #FF0000;
+}
+.attack-bt:active{
+transform: scale(0.95);
+}
+
+.reroll-bt{
+    background-color: #55CFCF;
+    box-shadow: 0 0 20px #55CFCF;
+}
+.reroll-bt:hover{
+    box-shadow: 0 0 50px #55CFCF;;
+}
+.reroll-bt:active{
+    transform: scale(0.95);
+}
+
+.third-dice-bt{
+    background-color: #0004FF;
+    box-shadow: 0 0 20px #0004FF;
+}
+.third-dice-bt:hover{
+    box-shadow: 0 0 50px #0004FF;
+}
+.third-dice-bt:active{
+    transform: scale(0.95);
+}
+
+.heal-bt{
+    background-color: #FFEA00;
+    box-shadow: 0 0 20px #FFEA00;
+    margin-right: 5%;
+}
+.heal-bt:hover{
+    box-shadow: 0 0 50px #FFEA00;
+}
+.heal-bt:active{
+    transform: scale(0.95);
+}
+
+.test{
+    height: 100px;
+    width: 100px;
+}
+
+/*Стиль скелетонов*/
+.disable-bt{
+    display: block;
+    justify-content: center; /* Центрирует элементы по горизонтали */
+    align-items: center; /* Центрирует элементы по вертикали */
+    z-index: 2;
+    background-color: #120e0e;
+    border-radius: 10px;
+    border: 2px solid #4c4747;
+    width: 80%;
+    height: 60%;
+    box-shadow: 0 0 35px #120e0e;
+    cursor: not-allowed;
+    pointer-events: none;
+    margin-left: 4%;
+}

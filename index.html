@@ -1,0 +1,195 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dice of Death</title>
+    <link rel="icon" type="image/x-icon" href="img/logoDD.png">
+    <link rel="stylesheet" href="styles/backgr.css">
+    <link rel="stylesheet" href="styles/button.css">
+    <link rel="stylesheet" href="styles/items.css">
+</head>
+<body>
+    <div class="container">
+        <button class="start-button" id="startBT">START</button>
+        <div class="under-table blur-test">
+            <div class="first-player players">
+                    <div class="buttons">
+                        <div class="attack-bt bt-4-switch frst-plr" id="attack-bt">
+                            <img src="img/attack-bt.png" alt="button">
+                        </div>
+                        <div class="reroll-bt bt-4-switch frst-plr" id="roll-active">
+                            <img src="img/reroll-bt.png" alt="button">
+                        </div>
+                        <div class="third-dice-bt bt-4-switch frst-plr" id="add-third-dice">
+                            <img src="img/+dice-bt.png" alt="button">
+                        </div>
+                        <div class="heal-bt bt-4-switch frst-plr" id="heal-button">
+                            <img src="img/heal-bt.png" alt="button">
+                        </div>
+                    </div>
+                    <div class="hp-player">
+                        <div class="health-bar"> 
+                            <div class="hp-counter" id="hp-frst">
+                            </div>  
+                        </div>
+                    </div>   
+            </div>
+            <div class="central-container">
+                <div class="settings">
+                    <div class="wonFrstPlayer">
+                        <h1 class="winner-1">Player 1 won</h1>
+                    </div>
+                    <div class="restart-item">
+                        <button class="restartBT" id="restartButton">RESTART</button>
+                    </div>
+                    <div class="wonScndPlayer">
+                       <h1 class="winner-2">Player 2 won</h1>
+                    </div>
+                </div>
+                <div class="table"> 
+                        <div class="dice" id="dice1">
+                            <div class="face" id="face1">
+                                <div class="dot"></div>
+                            </div>
+                            <div class="face" id="face2">
+                                <div class="dot"></div>
+                                <div class="dot"></div>
+                            </div>
+                            <div class="face" id="face3">
+                                <div class="dot"></div>
+                                <div class="dot"></div>
+                                <div class="dot"></div>
+                            </div>
+                            <div class="face" id="face4">
+                                <div class="dot"></div>
+                                <div class="dot"></div>
+                                <div class="dot"></div>
+                                <div class="dot"></div>
+                            </div>
+                            <div class="face" id="face5">
+                                <div class="dot"></div>
+                                <div class="dot"></div>
+                                <div class="dot"></div>
+                                <div class="dot"></div>
+                                <div class="dot"></div>
+                            </div>
+                            <div class="face" id="face6">
+                                <div class="dot"></div>
+                                <div class="dot"></div>
+                                <div class="dot"></div>
+                                <div class="dot"></div>
+                                <div class="dot"></div>
+                                <div class="dot"></div>
+                            </div>
+                        </div>
+                        <div class="dice" id="dice2">
+                            <div class="face" id="face1">
+                                <div class="dot"></div>
+                            </div>
+                            <div class="face" id="face2">
+                                <div class="dot"></div>
+                                <div class="dot"></div>
+                            </div>
+                            <div class="face" id="face3">
+                                <div class="dot"></div>
+                                <div class="dot"></div>
+                                <div class="dot"></div>
+                            </div>
+                            <div class="face" id="face4">
+                                <div class="dot"></div>
+                                <div class="dot"></div>
+                                <div class="dot"></div>
+                                <div class="dot"></div>
+                            </div>
+                            <div class="face" id="face5">
+                                <div class="dot"></div>
+                                <div class="dot"></div>
+                                <div class="dot"></div>
+                                <div class="dot"></div>
+                                <div class="dot"></div>
+                            </div>
+                            <div class="face" id="face6">
+                                <div class="dot"></div>
+                                <div class="dot"></div>
+                                <div class="dot"></div>
+                                <div class="dot"></div>
+                                <div class="dot"></div>
+                                <div class="dot"></div>
+                            </div>
+                        </div>
+                        <div class="dice" id="dice3">
+                            <div class="face" id="face1">
+                                <div class="dot"></div>
+                            </div>
+                            <div class="face" id="face2">
+                                <div class="dot"></div>
+                                <div class="dot"></div>
+                            </div>
+                            <div class="face" id="face3">
+                                <div class="dot"></div>
+                                <div class="dot"></div>
+                                <div class="dot"></div>
+                            </div>
+                            <div class="face" id="face4">
+                                <div class="dot"></div>
+                                <div class="dot"></div>
+                                <div class="dot"></div>
+                                <div class="dot"></div>
+                            </div>
+                            <div class="face" id="face5">
+                                <div class="dot"></div>
+                                <div class="dot"></div>
+                                <div class="dot"></div>
+                                <div class="dot"></div>
+                                <div class="dot"></div>
+                            </div>
+                            <div class="face" id="face6">
+                                <div class="dot"></div>
+                                <div class="dot"></div>
+                                <div class="dot"></div>
+                                <div class="dot"></div>
+                                <div class="dot"></div>
+                                <div class="dot"></div>
+                            </div>
+                        </div>
+                </div>
+            </div>
+            <div class="second-player players">
+                <div class="hp-player">
+                    <div class="health-bar"> 
+                        <div class="hp-counter" id="hp-scnd">
+                        </div>  
+                    </div>
+                </div>
+                <div class="buttons">
+                    <div class="attack-bt bt-4-switch scnd-plr" id="attack-bt2">
+                    <img src="img/attack-bt.png" alt="button">
+                    </div>
+                    <div class="reroll-bt bt-4-switch scnd-plr" id="roll-active2">
+                        <img src="img/reroll-bt.png" alt="button">
+                    </div>
+                    <div class="third-dice-bt bt-4-switch scnd-plr" id="add-third-dice2">
+                        <img src="img/+dice-bt.png" alt="button">
+                    </div>
+                    <div class="heal-bt bt-4-switch scnd-plr" id="heal-button2">
+                        <img src="img/heal-bt.png" alt="button">
+                    </div>
+                </div>    
+            </div>
+            <div class="line line1"></div>
+            <div class="line line2"></div>
+            <div class="line line3"></div>
+            <div class="line line4"></div>
+            <div class="line line5"></div>
+            <div class="line line6"></div>
+            <div class="line line7"></div>
+        </div>
+    </div>
+    <button id="exp1">EXPERIMENT 1</button>
+    <button id="exp2">EXPERIMENT 2</button>
+    <script type="module" src="scripts/script.js"></script>
+    <script type="module" src="scripts/functions.js"></script>
+    <script type="module" src="scripts/items.js"></script>
+</body>
+</html>
