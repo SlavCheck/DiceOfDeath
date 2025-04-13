@@ -1,5 +1,5 @@
 //Импортируемые элементы
-import { addDice, clearDisplay, changeStyle, disable, checkFinish, delElem, showElem} from "./functions.js";
+import { addDice, clearDisplay, changeStyle, disable, checkFinish, delElem, showElem, clearSum} from "./functions.js";
 import { switchFunc } from "./script.js";
 //Эксп. элементы
 export const expButton1 = document.getElementById('exp1');
@@ -194,6 +194,8 @@ function timerActivation(activ, passiv){
 //Функция свитча актуального игрока
 export function switchPlayer() {
     timerToTrue();
+    delElem(dice3);
+    clearSum(sumDice);
     currentPlayer = currentPlayer === player1 ? player2 : player1;
     passivePlayer = passivePlayer === player1 ? player2 : player1;
     currentPlayer.timerStart();

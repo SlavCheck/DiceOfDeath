@@ -109,8 +109,6 @@ export function switchFunc(){
 //Атака
 function attacker(){
     currentPlayer.attack(sumOfDice(sumDice), passivePlayer);
-    clearSum(sumDice);
-    delElem(dice3);
     updateHp(passivePlayer, currentPlayer, maxHp);
     swapFuncTimer(currentPlayer)
 };
@@ -119,9 +117,7 @@ eventHandler(attackButtons, attacker);
 //Лечение
 function healing(){
     currentPlayer.heal(sumOfDice(sumDice), currentPlayer);
-    clearSum(sumDice);
     updateHp(currentPlayer, passivePlayer, maxHp);
-    delElem(dice3);
     swapFuncTimer(currentPlayer)
 };
 eventHandler(healButtons, healing);
