@@ -77,3 +77,28 @@ body{
     transform: rotate(35deg);
 } 
 
+.lineX{
+    left:  50%;               
+    height:  90%; 
+    top: 0;
+    position: absolute; 
+    z-index: 1;
+    background-color: #ff0000;
+    border: 2px solid #ff0000;
+}
+
+.lineA{
+    transform: rotate(45deg);
+}
+
+.lineB{
+    transform: rotate(-45deg);
+}
+
+.lineC{
+    transform: rotate(45deg);
+}
+
+.lineD{
+    transform: rotate(-45deg);
+}

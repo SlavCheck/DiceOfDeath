@@ -247,3 +247,28 @@ h1{
 .restartBT:active{
     transform: translateY(2px);
 }
+
+.timers{
+    position: absolute;
+    width: 20%; 
+    height: 5%; 
+    background: #120E0E; 
+    left: 50%; 
+    transform: translateX(-50%); 
+    border: 1px solid #ffffff;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: white;
+    font-size: 200%;
+}
+
+.top{
+    z-index: 3;
+    transform: translate(-50%, -210%);
+}
+
+.bottom{
+    z-index: 3;
+    transform: translate(-50%, 210%);
+}

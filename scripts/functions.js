@@ -1,4 +1,5 @@
-import { currentPlayer, passivePlayer, showWinner } from "./items.js";
+import { currentPlayer, maxHp, passivePlayer, showWinner, switchPlayer, timerDuration} from "./items.js";
+import { defaultButtons, switchFunc } from "./script.js";
 
 //Создание рандомного числа от 1 до 6
 export function callRand(){
@@ -60,8 +61,8 @@ export function delElem(elem){
 };
 
 //Отображение элементов
-export function showElem(elem){
-    elem.style.display = 'block';
+export function showElem(elem, displayType = 'block'){
+    elem.style.display = displayType;
 };
 
 //Как заменить кнопку скелетоном
@@ -93,9 +94,9 @@ export function switchStyle(element){
 };
 
 //Обработка массива элементов (Скрыть/Показать)
-export function changeStyle(elements, func){
+export function changeStyle(elements, func, typeDisplay){
     for(let i=0; i < elements.length; i++){
-        func(elements[i]);
+        func(elements[i], typeDisplay);
     }
 };
 
@@ -111,7 +112,7 @@ export function updateHp(activepers, passivepers, maxHp){
         activepers.hp = 50;
     }
     activepers.showHP.style.width = `${percentage}%`;
-    activepers.showHP.innerHTML = activepers.hp;
+    activepers.showHP.textContent = activepers.hp;
     var percentage2 = (passivepers.hp/maxHp) * 100;
     if(percentage2 <= 0){
         percentage2 = 0;
@@ -122,7 +123,7 @@ export function updateHp(activepers, passivepers, maxHp){
         passivepers.hp = 50;
     }
     passivepers.showHP.style.width = `${percentage2}%`;
-    passivepers.showHP.innerHTML = passivepers.hp;
+    passivepers.showHP.textContent = passivepers.hp;
 };
 
 //Обработчик событий (Кнопки/Функция)
@@ -192,11 +193,23 @@ export function checkHp(activePlr, PassivePlr){
             activePlr.hp = 50;
             PassivePlr.hp = 50;
         }
-};
+}
 
 //Стартовый откат способностей
 export function startsRollBack(){
     currentPlayer.rollback = [false, 0, true, 3];
     passivePlayer.rollback = [false, 0, false, 0];
-};
+}
+
+// function for end game
+export function lowHp(p1,p2){
+    p1.hp = 1;
+    p2.hp = 1;
+    updateHp(p1,p2,maxHpFrst);
+}
+
+
+
+
+
 
