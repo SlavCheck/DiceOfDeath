@@ -1,8 +1,9 @@
-import { expButton1, expButton2, expButton3, player1, player2, showWinner, timers, swapFuncTimer, stopFuncTimer} from "./items.js";
-import { lowHp } from "./functions.js";
+import { expButton1, expButton2, expButton3, timers, swapFuncTimer, stopFuncTimer} from "./items.js";
+import {lowHp } from "./functions.js";
 
 
 eventHandler([expButton1], () => lowHp(currentPlayer, passivePlayer));
+eventHandler([expButton2], () => changeStyle(healButtons[0], enable));
 eventHandler([expButton3], () => stopFuncTimer(currentPlayer));
 
 
@@ -50,12 +51,12 @@ import { clearDisplay } from "./functions.js"; // Очистить кубик (�
 import { checkThirdDice } from "./functions.js"; // Проверка наличия третьего кубика
 // import { addDice } from "./functions.js"; // Добавить кубик
 import { sumOfDice } from "./functions.js"; // Сумма кубиков - для операций над hp
-import { clearSum } from "./functions.js"; // Очистка массива суммы кубиков
-import { delElem } from "./functions.js"; // Спрятать третий кубик
+// import { clearSum } from "./functions.js"; // Очистка массива суммы кубиков
+import { delElem } from "./functions.js"; // Спрятать элемент
 import { switchPlayer } from "./items.js"; //Функция свитча актуального игрока
 // import { attack } from "./items.js"; //Функция атаки
-import { rollCheckerDice } from "./functions.js";
-import { rollCheckerHeal } from "./functions.js";
+// import { rollCheckerDice } from "./functions.js";
+// import { rollCheckerHeal } from "./functions.js";
 // import { checkFinish } from "./functions.js";
 import { GameOver } from "./functions.js";
 import { checkHp } from "./functions.js";
@@ -73,7 +74,7 @@ window.onload = function(){
 
 //Состояние кнопок на начало игры
 export function defaultButtons(active, passive,){
-    if (!rollCheckerDice(active)){
+    if (!active.rollback[2]){
     changeStyle([active.buttons[1], active.buttons[2]], enable);
     }else{changeStyle([active.buttons[1]], enable);}
     changeStyle([active.buttons[0], active.buttons[3]], disable);
@@ -95,6 +96,8 @@ function startGame(){
     updateHp(passivePlayer, currentPlayer, maxHp);
     updateHp(currentPlayer, passivePlayer, maxHp);
     startsRollBack();
+    currentPlayer.rollbackFunc();
+    passivePlayer.rollbackFunc();
 };
 eventHandler(startButtons, startGame);
 
@@ -110,15 +113,17 @@ export function switchFunc(){
 function attacker(){
     currentPlayer.attack(sumOfDice(sumDice), passivePlayer);
     updateHp(passivePlayer, currentPlayer, maxHp);
-    swapFuncTimer(currentPlayer)
+    swapFuncTimer(currentPlayer);
 };
 eventHandler(attackButtons, attacker);
 
 //Лечение
 function healing(){
+    currentPlayer.rollback[0] = true;
     currentPlayer.heal(sumOfDice(sumDice), currentPlayer);
     updateHp(currentPlayer, passivePlayer, maxHp);
-    swapFuncTimer(currentPlayer)
+    swapFuncTimer(currentPlayer);
+
 };
 eventHandler(healButtons, healing);
 
@@ -135,7 +140,7 @@ function rolling(){
     if(currentPlayer.buttons[2].classList.contains('disable-bt')){
     changeStyle([currentPlayer.buttons[1]], disable);}
     else {changeStyle([currentPlayer.buttons[1],currentPlayer.buttons[2]],switchStyle);}
-    if(!rollCheckerHeal(currentPlayer)){
+    if(!currentPlayer.rollback[0]){
     changeStyle([currentPlayer.buttons[0],currentPlayer.buttons[3]],switchStyle);
     }else{changeStyle([currentPlayer.buttons[0]],switchStyle);}
 };

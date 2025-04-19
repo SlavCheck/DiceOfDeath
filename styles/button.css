@@ -87,4 +87,7 @@ transform: scale(0.95);
     cursor: not-allowed;
     pointer-events: none;
     margin-left: 4%;
+    color: #ffffff;
+    text-align: center;
+    font-size: 200%;
 }

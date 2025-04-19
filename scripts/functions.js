@@ -1,5 +1,4 @@
-import { currentPlayer, maxHp, passivePlayer, showWinner, switchPlayer, timerDuration} from "./items.js";
-import { defaultButtons, switchFunc } from "./script.js";
+import { currentPlayer, maxHp, passivePlayer, showWinner} from "./items.js";
 
 //Создание рандомного числа от 1 до 6
 export function callRand(){
@@ -65,20 +64,21 @@ export function showElem(elem, displayType = 'block'){
     elem.style.display = displayType;
 };
 
+//Функция скрытия элемента/кнопок
+export function disable(element){
+    if(!element.classList.contains('disable-bt')){
+        element.classList.add('disable-bt');
+        element.querySelector('img').style.display = 'none'; 
+    };
+    
+};
+
 //Как заменить кнопку скелетоном
 export function enable(element){
     if(element.classList.contains('disable-bt')){
         element.classList.remove('disable-bt');
         element.querySelector('img').style.display = 'block';
-    }
-};
-
-//Функция скрытия элемента/кнопок
-export function disable(element){
-    if(!element.classList.contains('disable-bt')){
-        element.classList.add('disable-bt');
-        element.querySelector('img').style.display = 'none';
-    }
+    }  
 };
 
 //Функция смены стиля (Скрыть/Показать)
@@ -133,42 +133,38 @@ export function eventHandler(array, func){
     }
 };
 
-//Прячем кнопку и убираем блюр
+//hide buttons and delete blur
 export function startStyle(el, bck){
     bck.classList.remove('blur-test');
     el.style.display = 'none';
 };
 
-//Логика откатов
-// Надо внедрить логику в disable-bt
+
+// Function for check heal or start rollback
 export function rollCheckerHeal(checked){
     if (checked.rollback[0]){
-        if(checked.rollback[1] === 2){
+        if(checked.rollback[1] === 1){
             checked.rollback[0] = false;
-            checked.rollback[1] = 0;
-            return false;
+            checked.rollback[1] = 2;
         } else{
-        checked.rollback[1]++;
-        return true;
+        checked.rollback[1]--;
         }
     }
 }
 
-//Функция проверяющая есть ли 3ий кубик и запускает откат
+//Function for check third dice or start rollback
 export function rollCheckerDice(checked){
     if (checked.rollback[2]){
-        if(checked.rollback[3] === 3){
+        if(checked.rollback[3] === 1){
             checked.rollback[2] = false;
-            checked.rollback[3] = 0;
-            return false;
+            checked.rollback[3] = 3;
         } else{
-        checked.rollback[3]++;
-        return true;
+        checked.rollback[3]--;
         }
     }
 }
 
-//функция проверяет финиш и прячет кнопки
+//function for check finish
 export function checkFinish(first, second){
     if(first.hp <= 0){
         changeStyle(first.buttons, disable);
@@ -178,16 +174,15 @@ export function checkFinish(first, second){
     return true;
 }
 
-//Функция финиша, отображение победителя и кнопки старт
+//Game over function. Remove dices, disable buttons, show setng and winner 
 export function GameOver(buttons, dices, setng){
     changeStyle(buttons, disable);
     changeStyle(dices, delElem);
     showElem(setng);
     showWinner();
-    // Добавить сюда обнуление откатов
 }
 
-//Проверка, что у игроков не полные hp (для рестарта)
+//check player's hp for restart game
 export function checkHp(activePlr, PassivePlr){
      if((activePlr.hp || PassivePlr.hp) !== 50){
             activePlr.hp = 50;
@@ -197,17 +192,25 @@ export function checkHp(activePlr, PassivePlr){
 
 //Стартовый откат способностей
 export function startsRollBack(){
-    currentPlayer.rollback = [false, 0, true, 3];
-    passivePlayer.rollback = [false, 0, false, 0];
+    currentPlayer.rollback = [false, 2, true, 1];
+    passivePlayer.rollback = [false, 2, false, 3];
 }
 
 // function for end game
 export function lowHp(p1,p2){
     p1.hp = 1;
     p2.hp = 1;
-    updateHp(p1,p2,maxHpFrst);
+    updateHp(p1,p2,maxHp);
 }
 
+
+// export function checker(plrs, func){
+//     for (let i=0; i<plrs.length; i++){
+//         for (let l=0; l<func.length; l++){
+//             func[l](plrs[i]);
+//         }
+//     }
+// }
 
 
 

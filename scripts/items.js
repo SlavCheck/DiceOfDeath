@@ -1,5 +1,5 @@
 //Импортируемые элементы
-import { addDice, clearDisplay, changeStyle, disable, checkFinish, delElem, showElem, clearSum} from "./functions.js";
+import { rollCheckerHeal, rollCheckerDice, addDice, clearDisplay, changeStyle, disable, checkFinish, delElem, showElem, clearSum} from "./functions.js";
 import { switchFunc } from "./script.js";
 //Эксп. элементы
 export const expButton1 = document.getElementById('exp1');
@@ -45,7 +45,6 @@ export const attackButton2 = document.getElementById('attack-bt2');
 export const rollButton2 = document.getElementById('roll-active2');
 export const thirdDiceButton2 = document.getElementById('add-third-dice2');
 export const healButton2 = document.getElementById('heal-button2');
-export const attackBT = document.querySelector('.attack-bt');
 
 export const attackButtons = [attackButton, attackButton2];
 export const rollButtons = [rollButton, rollButton2];
@@ -53,11 +52,23 @@ export const thirdDiceButtons = [thirdDiceButton, thirdDiceButton2];
 export const healButtons = [healButton, healButton2];
 export const startButtons = [restartBT, startButton];
 
-//Все элементы игроков
+// Rollback of buttons
+// 0 and 2 - third dice, 1 and 3 - heal
+export const buttonsWithRollback = [
+    thirdDiceButton,
+    healButton,
+    thirdDiceButton2,
+    healButton2
+]
+export const showRollbackButtons = document.querySelectorAll('.showRollback');
+export const showRollbackP1 = document.querySelectorAll('.frst-plr .showRollback');
+export const showRollbackP2 = document.querySelectorAll('.scnd-plr .showRollback');
+
+//All elements of players
 export const playersStyle = document.querySelectorAll('.players');
 export const backTable = document.querySelector('.under-table');
 
-//Кубики и их грани (dice - кубик / face - грани)
+//Dices and his faces (dice - кубик / face - грани)
 export const dice1 = document.getElementById('dice1');
 export const facesDice1 = dice1 ? dice1.querySelectorAll('.face'):[];
 export const dice2 = document.getElementById('dice2');
@@ -67,12 +78,10 @@ export const facesDice3 = dice3 ? dice3.querySelectorAll('.face'):[];
 
 export const AllDices = [dice1, dice2, dice3];
 
-//Кнопки всех игроков для скрытия(скелетон)
+//All buttons of all players for function "disable"
 export const allPlayers = document.querySelectorAll('.bt-4-switch');
 export const scndPlayer = document.querySelectorAll('.scnd-plr');
 export const frstPlayer = document.querySelectorAll('.frst-plr');
-
-
 
 //Значение hp игроков
 export var hpFrstPlr = document.getElementById('hp-frst');
@@ -84,6 +93,7 @@ export let maxHp = 50;
 let rollbackP1 = [false, 0, false, 0]; //первый элемент heal; второй элемент +button
 let rollbackP2 = [false, 0, false, 0]; //первый элемент heal; второй элемент +button
 
+
 //Таймер
 
 
@@ -91,14 +101,14 @@ export var sumDice = [];//Массив кубиков на момент брос
 
 //Класс игрока
 export class Player {
-    constructor(name, hp, buttons, showHP, rollback, showTimer, timeToStep, timer){
+    constructor(name, hp, buttons, showHP, rollback, itemsRollback, showTimer, timer){
         this.name = name;
         this.hp = hp;
         this.buttons = buttons || [];
         this.showHP = showHP;
         this.rollback = rollback;
+        this.itemsRollback = itemsRollback;
         this.showTimer = showTimer;
-        this.timeToStep = timeToStep;
         this.timer = timer;
     }
     attack(damage, passivePlayer) {
@@ -118,6 +128,17 @@ export class Player {
         timerActivation(this, passivePlayer);
         startTimer(this);
     }
+    rollbackFunc(){
+        if(this.rollback[0]){
+            this.itemsRollback[1].style.display = 'block';
+            this.itemsRollback[1].textContent = this.rollback[1];
+        } else {this.itemsRollback[1].style.display = 'none';
+        }
+        if(this.rollback[2]){
+            this.itemsRollback[0].style.display = 'block';
+            this.itemsRollback[0].textContent = this.rollback[3];
+        } else {this.itemsRollback[0].style.display = 'none'}
+    }
 };
 
 //Создание персонажей (надо убрать в кнопку старт)
@@ -127,6 +148,7 @@ export const player1 = new Player(
     frstPlayer, 
     hpFrstPlr,
     rollbackP1,
+    showRollbackP1,
     frstTimer,
     null
 );
@@ -136,15 +158,12 @@ export const player2 = new Player(
     scndPlayer, 
     hpScndPlr,
     rollbackP2,
+    showRollbackP2,
     scndTimer,
     null
 );
 
 let checkTimer = true;
-
-export function timerToStop(){
-    checkTimer = false;
-}
 
 export function timerToTrue(){
     checkTimer = true;
@@ -161,7 +180,6 @@ export function startTimer(player) {
     if (checkTimer){
     player.showTimer[0].textContent = player.timer;
     const intervalID = setInterval(() => {
-        console.log("Nmbr of timer ", intervalID);
         player.timer -= 1;
         player.showTimer[0].textContent = player.timer;
         if (player.timer <= 0 || checkTimer === false) {
@@ -173,14 +191,12 @@ export function startTimer(player) {
         switchFunc();
     }
     function stopTimer() {
-        console.log("Timer OFF");
         clearInterval(intervalID);
         player.timer = null;
         player.showTimer[0].textContent = "";
     }
     swapFuncTimer = swapTimer;
     stopFuncTimer = stopTimer;
-
 }
 }
 
@@ -199,6 +215,14 @@ export function switchPlayer() {
     currentPlayer = currentPlayer === player1 ? player2 : player1;
     passivePlayer = passivePlayer === player1 ? player2 : player1;
     currentPlayer.timerStart();
+    if(currentPlayer.rollback[2]){
+        rollCheckerDice(currentPlayer);
+    }
+    if(currentPlayer.rollback[0]){
+        rollCheckerHeal(currentPlayer);
+    }
+    currentPlayer.rollbackFunc();
+    passivePlayer.rollbackFunc();
     if(checkFinish(currentPlayer, passivePlayer)){
         return true; 
     } else {
@@ -207,8 +231,10 @@ export function switchPlayer() {
         delElem(dice2);
         changeStyle(timers, delElem);
         return false;
-    };
+    }
 }
+
+
 
 //Отображение экрана победы игрока
 export function showWinner(){
