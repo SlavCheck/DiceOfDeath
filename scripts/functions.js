@@ -1,4 +1,5 @@
-import { currentPlayer, maxHp, passivePlayer, showWinner} from "./items.js";
+import { currentPlayer, maxHp, passivePlayer, skillButtons } from "./items.js";
+import { showWinner } from "./settings.js";
 
 //Создание рандомного числа от 1 до 6
 export function callRand(){
@@ -164,6 +165,18 @@ export function rollCheckerDice(checked){
     }
 }
 
+// Function for check fireball or start rollback
+export function rollCheckerFire(checked){
+    if (checked.rollback[4]){
+        if(checked.rollback[5] === 1){
+            checked.rollback[4] = false;
+            checked.rollback[5] = 5;
+        } else{
+        checked.rollback[5]--;
+        }
+    }
+}
+
 //function for check finish
 export function checkFinish(first, second){
     if(first.hp <= 0){
@@ -177,6 +190,7 @@ export function checkFinish(first, second){
 //Game over function. Remove dices, disable buttons, show setng and winner 
 export function GameOver(buttons, dices, setng){
     changeStyle(buttons, disable);
+    changeStyle(skillButtons, disable);
     changeStyle(dices, delElem);
     showElem(setng);
     showWinner();
@@ -190,10 +204,10 @@ export function checkHp(activePlr, PassivePlr){
         }
 }
 
-//Стартовый откат способностей
+//Starts rollback
 export function startsRollBack(){
-    currentPlayer.rollback = [false, 2, true, 1];
-    passivePlayer.rollback = [false, 2, false, 3];
+    currentPlayer.rollback = [false, 2, true, 1, false, 5];
+    passivePlayer.rollback = [false, 2, false, 3, false, 5];
 }
 
 // function for end game
@@ -202,17 +216,3 @@ export function lowHp(p1,p2){
     p2.hp = 1;
     updateHp(p1,p2,maxHp);
 }
-
-
-// export function checker(plrs, func){
-//     for (let i=0; i<plrs.length; i++){
-//         for (let l=0; l<func.length; l++){
-//             func[l](plrs[i]);
-//         }
-//     }
-// }
-
-
-
-
-
