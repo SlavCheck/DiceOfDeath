@@ -1,14 +1,14 @@
-import { expButton1, expButton2, expButton3, expButton4, expButton5, timers, swapFuncTimer, stopFuncTimer, skillButtons, player1, player2, fireButtons, freezeButtons, expButton6} from "./items.js";
-import { disable, lowHp, unFreeze } from "./functions.js";
-import { defaultButtons, delFreeze, freezingButton, desibleAll } from "./buttons.js";
+import { expButton1, expButton2, expButton3, expButton4, expButton5, timers, swapFuncTimer, stopFuncTimer, skillButtons, player1, player2, fireButtons, freezeButtons, expButton6, defenceButtons} from "./items.js";
+import { lowHp } from "./functions.js";
+import { defaultButtons } from "./buttons.js";
 import { startGame } from "./settings.js";
-import { attacking, healing, rolling, fireball, freezing } from "./skill.js";
+import { attacking, healing, rolling, fireball, freezing, defending } from "./skill.js";
 
 eventHandler([expButton1], () => lowHp(currentPlayer, passivePlayer));
-eventHandler([expButton2], () => freezingButton(passivePlayer));
+eventHandler([expButton2], () => lowHp(currentPlayer, passivePlayer));
 eventHandler([expButton3], () => stopFuncTimer(currentPlayer));
-eventHandler([expButton4], () => delFreeze(passivePlayer));
-eventHandler([expButton5], () => desibleAll());
+eventHandler([expButton4], () => defending());
+eventHandler([expButton5], () => console.log(currentPlayer.def));
 eventHandler([expButton6], () => defaultButtons(currentPlayer, passivePlayer));
 
 //Кнопка Старта
@@ -60,4 +60,5 @@ eventHandler(healButtons, healing);
 eventHandler(rollButtons, rolling);
 eventHandler(fireButtons, fireball);
 eventHandler(freezeButtons, freezing);
+eventHandler(defenceButtons, defending);
 eventHandler(thirdDiceButtons, currentPlayer.thirdDiceAdd);

@@ -202,7 +202,7 @@ export function rollCheckerFire(checked){
     }
 }
 
-// Function for check freeze
+// Function for check freeze or start rollback
 export function rollCheckerFreeze(checked){
     if (checked.rollback[6]){
         if(checked.rollback[7] === 1){
@@ -210,6 +210,18 @@ export function rollCheckerFreeze(checked){
             checked.rollback[7] = 5;
         } else{
         checked.rollback[7]--;
+        }
+    }
+}
+
+// Function for check defence or start rollback
+export function rollCheckerDefence(checked){
+    if (checked.rollback[8]){
+        if(checked.rollback[9] === 1){
+            checked.rollback[8] = false;
+            checked.rollback[9] = 5;
+        } else{
+        checked.rollback[9]--;
         }
     }
 }
@@ -230,6 +242,7 @@ export function GameOver(buttons, dices, setng){
     changeStyle(skillButtons, disable);
     changeStyle(dices, delElem);
     showElem(setng);
+    cleanFireball();
     showWinner();
 }
 
@@ -252,4 +265,10 @@ export function lowHp(p1,p2){
     p1.hp = 1;
     p2.hp = 1;
     updateHp(p1,p2,maxHp);
+}
+
+// clean fire skill
+export function cleanFireball(){
+    currentPlayer.fireball = [0, 0];
+    passivePlayer.fireball = [0, 0];
 }

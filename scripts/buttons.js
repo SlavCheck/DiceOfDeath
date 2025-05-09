@@ -6,6 +6,7 @@ import { freezeDisable } from "./functions.js"; //Freeze buttons
 import { currentPlayer, passivePlayer } from "./items.js";
 import { freezeActivation } from "./skill.js";
 //Состояние кнопок на начало игры
+
 export function defaultButtons(active, passive){
     if(passive.freeze[0]){
         freezeActivation(active, passive)
@@ -28,13 +29,3 @@ export function freezingButton(plr){
     changeStyle(plr.buttons, freezeDisable), 
     changeStyle(plr.skills, freezeDisable)
 };
-
-export function delFreeze(plr){
-    changeStyle(plr.buttons, unFreeze),
-    changeStyle(plr.skills, unFreeze)
-}
-
-export function desibleAll(){
-    changeStyle(passivePlayer.buttons, disable),
-    changeStyle(passivePlayer.skills, disable)
-}

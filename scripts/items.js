@@ -1,5 +1,5 @@
 //Импортируемые элементы
-import { rollCheckerHeal, rollCheckerDice, addDice, clearDisplay, changeStyle, disable, checkFinish, delElem, showElem, clearSum, rollCheckerFire, rollCheckerFreeze} from "./functions.js";
+import { rollCheckerHeal, rollCheckerDice, addDice, clearDisplay, changeStyle, disable, checkFinish, delElem, showElem, clearSum, rollCheckerFire, rollCheckerFreeze, rollCheckerDefence} from "./functions.js";
 import { switchFunc } from "./script.js";
 import { fireCount } from "./skill.js";
 //Эксп. элементы
@@ -43,6 +43,7 @@ export const thirdDiceButton = document.getElementById('add-third-dice');
 export const healButton = document.getElementById('heal-button');
 export const fireButton = document.getElementById('fireBall');
 export const freezeButton = document.getElementById('freezeBT');
+export const defenceButton = document.getElementById('defence');
 
 export const attackButton2 = document.getElementById('attack-bt2');
 export const rollButton2 = document.getElementById('roll-active2');
@@ -50,6 +51,8 @@ export const thirdDiceButton2 = document.getElementById('add-third-dice2');
 export const healButton2 = document.getElementById('heal-button2');
 export const fireButton2 = document.getElementById('fireBall2');
 export const freezeButton2 = document.getElementById('freezeBT2');
+export const defenceButton2 = document.getElementById('defence2');
+
 
 export const attackButtons = [attackButton, attackButton2];
 export const rollButtons = [rollButton, rollButton2];
@@ -57,6 +60,7 @@ export const thirdDiceButtons = [thirdDiceButton, thirdDiceButton2];
 export const healButtons = [healButton, healButton2];
 export const fireButtons = [fireButton, fireButton2];
 export const freezeButtons = [freezeButton, freezeButton2];
+export const defenceButtons = [defenceButton, defenceButton2];
 export const startButtons = [restartBT, startButton];
 
 export const skillButtons = document.querySelectorAll('.skill-item');
@@ -103,9 +107,9 @@ export var hpScndPlr = document.getElementById('hp-scnd');
 //Hp summ
 export let maxHp = 50;
 
-              // check/heal, check/thrdDice, check/flame check/freeze
-let rollbackP1 = [false, 0, false, 0, false, 0, false, 0]; 
-let rollbackP2 = [false, 0, false, 0, false, 0, false, 0];
+              // check/heal, check/thrdDice, check/flame check/freeze check/defence
+let rollbackP1 = [false, 0,   false, 0, false, 0, false, 0, false, 0]; 
+let rollbackP2 = [false, 0,   false, 0, false, 0, false, 0, false, 0];
 
 //SKILLS
 //Fireball
@@ -115,13 +119,17 @@ export var fireItemsScnd = [];
 //Freeze
 export var freezeItemFrst = [];
 export var freezeItemScnd = [];
+
+//Defence
+export var defenceItemsFrst = [];
+export var defenceItemsScnd = [];
  
 
 export var sumDice = [];//Массив кубиков на момент броска.
 
 //Класс игрока
 export class Player {
-    constructor(name, hp, buttons, showHP, rollback, itemsRollback, showTimer, timer, skills, skillsShowRollback, fireball, freeze){
+    constructor(name, hp, buttons, showHP, rollback, itemsRollback, showTimer, timer, skills, skillsShowRollback, fireball, freeze, def){
         this.name = name;
         this.hp = hp;
         this.buttons = buttons || [];
@@ -133,7 +141,8 @@ export class Player {
         this.skills = skills;
         this.skillsShowRollback = skillsShowRollback;
         this.fireball = fireball;
-        this.freeze = freeze  
+        this.freeze = freeze;
+        this.def = def
     }
     attack(damage, passivePlayer) {
         passivePlayer.hp -= damage;
@@ -155,6 +164,10 @@ export class Player {
         startTimer(this);
     }
     rollbackFunc(){
+        if(this.rollback[8]){
+            this.skillsShowRollback[1].style.display = 'block';
+            this.skillsShowRollback[1].textContent = this.rollback[9];
+        } else {this.skillsShowRollback[1].style.display = 'none'}
         if(this.rollback[6]){
             this.skillsShowRollback[2].style.display = 'block';
             this.skillsShowRollback[2].textContent = this.rollback[7];
@@ -187,7 +200,8 @@ export const player1 = new Player(
     frstSkillButtons,
     skillRollBackP1,
     fireItemsFrst,
-    freezeItemFrst
+    freezeItemFrst,
+    defenceItemsFrst
 );
 export const player2 = new Player(
     'player2', 
@@ -201,7 +215,8 @@ export const player2 = new Player(
     scndSkillButtons,
     skillRollBackP2,
     fireItemsScnd,
-    freezeItemScnd
+    freezeItemScnd,
+    defenceItemsScnd
 );
 
 
@@ -270,6 +285,9 @@ export function switchPlayer() {
     if(currentPlayer.rollback[6]){
         rollCheckerFreeze(currentPlayer);
     }
+    if(currentPlayer.rollback[8]){
+        rollCheckerDefence(currentPlayer);
+    }
     currentPlayer.rollbackFunc();
     passivePlayer.rollbackFunc();
     if(checkFinish(currentPlayer, passivePlayer)){
@@ -295,5 +313,3 @@ export function choiceFrstPlr(){
         passivePlayer = player1;
     }
 }
-console.log(currentPlayer.rollback);
-console.log(currentPlayer.skillsShowRollback);

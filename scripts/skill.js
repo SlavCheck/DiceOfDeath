@@ -14,7 +14,7 @@ import { dice3} from "./items.js" // дивы всех кубиков
 import { maxHp } from "./items.js"; // Максимальное hp для 1 игрока
 
 //Импортированные функции
-import { changeStyle, showElem } from "./functions.js"; // Вкл/Выкл скелетон
+import { changeStyle } from "./functions.js"; // Вкл/Выкл скелетон
 import { disable } from "./functions.js"; //Функция отключения кнопок
 import { enable } from "./functions.js"; //Функция включения кнопок
 import { updateHp } from "./functions.js"; //Функция обновления состояния hp 
@@ -27,7 +27,10 @@ import { freezingButton } from "./buttons.js"; // Freeze disable buttons
 
 //Attacking button
 export function attacking(){
-    currentPlayer.attack(sumOfDice(sumDice), passivePlayer);
+    if(passivePlayer.def[0]){
+        currentPlayer.attack(Math.ceil(sumOfDice(sumDice)/2), passivePlayer);
+        passivePlayer.def = [false, 0];
+    }else{currentPlayer.attack(sumOfDice(sumDice), passivePlayer);}  
     updateHp(passivePlayer, currentPlayer, maxHp);
     swapFuncTimer(currentPlayer);
 };
@@ -61,9 +64,13 @@ export function rolling(){
     if (!currentPlayer.rollback[4]){
         changeStyle([currentPlayer.skills[0]], enable);
     }
+    if(!currentPlayer.rollback[8]){
+        changeStyle([currentPlayer.skills[1]], enable);
+    }
     if(!currentPlayer.rollback[6]){
         changeStyle([currentPlayer.skills[2]], enable);
     }
+    
 };
 
 //Fire buttons
@@ -75,7 +82,11 @@ export function fireball(){
     if(!currentPlayer.rollback[6]){
         currentPlayer.rollback[6] = true;
         currentPlayer.rollback[7] = 2;
-        }
+    };
+    if(!currentPlayer.rollback[8]){
+        currentPlayer.rollback[8] = true;
+        currentPlayer.rollback[9] = 2;
+    };
     changeStyle(currentPlayer.skills, disable);
 }
 
@@ -85,8 +96,9 @@ export function fireCount(p1, p2){
         updateHp(p2, p1, maxHp);
         p1.fireball[1]--;
         p1.fireball[0] = Math.ceil(p1.fireball[0]/2);
-        } else (p1.fireball[0]=0);
-}
+} else {p1.fireball[0]=0};
+}    
+
 
 //Freeze buttons
 export function freezing(){
@@ -98,6 +110,10 @@ export function freezing(){
     currentPlayer.rollback[4] = true;
     currentPlayer.rollback[5] = 2;
     }
+    if(!currentPlayer.rollback[8]){
+        currentPlayer.rollback[8] = true;
+        currentPlayer.rollback[9] = 2;
+        }
     changeStyle(currentPlayer.skills, disable);
 }
 
@@ -107,4 +123,20 @@ export function freezeActivation(p1, p2){
         p2.freeze[0] = false;
         p2.freeze[1] = 0;
     }
+}
+
+//Defence buttons
+export function defending(){
+    currentPlayer.def = [true, 1];
+    currentPlayer.rollback[8] = true;
+    currentPlayer.rollback[9] = 5;
+    if(!currentPlayer.rollback[4]){
+        currentPlayer.rollback[4] = true;
+        currentPlayer.rollback[5] = 2;
+    }
+    if(!currentPlayer.rollback[6]){
+        currentPlayer.rollback[6] = true;
+        currentPlayer.rollback[7] = 2;
+    }
+    changeStyle(currentPlayer.skills, disable);
 }
