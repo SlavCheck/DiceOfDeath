@@ -4,12 +4,12 @@ import { defaultButtons } from "./buttons.js";
 import { startGame } from "./settings.js";
 import { attacking, healing, rolling, fireball, freezing, defending } from "./skill.js";
 
-eventHandler([expButton1], () => lowHp(currentPlayer, passivePlayer));
-eventHandler([expButton2], () => lowHp(currentPlayer, passivePlayer));
-eventHandler([expButton3], () => stopFuncTimer(currentPlayer));
-eventHandler([expButton4], () => defending());
-eventHandler([expButton5], () => console.log(currentPlayer.def));
-eventHandler([expButton6], () => defaultButtons(currentPlayer, passivePlayer));
+// eventHandler([expButton1], () => lowHp(currentPlayer, passivePlayer));
+// eventHandler([expButton2], () => lowHp(currentPlayer, passivePlayer));
+// eventHandler([expButton3], () => stopFuncTimer(currentPlayer));
+// eventHandler([expButton4], () => defending());
+// eventHandler([expButton5], () => console.log(currentPlayer.def));
+// eventHandler([expButton6], () => defaultButtons(currentPlayer, passivePlayer));
 
 //Кнопка Старта
 import { startButtons } from "./items.js";
